@@ -75,5 +75,3 @@ test_users: list[dict[str, int | str]] = [
     {'id': 3,
      'role': 'trader',
      'name': 'Mul'},]
-
-print(test_trades[0:1+1])
