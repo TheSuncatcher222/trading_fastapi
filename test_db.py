@@ -64,7 +64,11 @@ test_trades: list[dict[str, int | str]] = [
 test_users: list[dict[str, int | str]] = [
     {'id': 1,
      'role': 'admin',
-     'name': 'Kir'},
+     'name': 'Kir',
+     'degree': [
+         {'id': 1,
+          'created_at': '2023-01-01T00:00:00',
+          'type_degree': 'expert'},],},
     {'id': 2,
      'role': 'user',
      'name': 'Al'},
