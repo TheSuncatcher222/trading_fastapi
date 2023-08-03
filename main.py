@@ -3,8 +3,8 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import ValidationException
 from fastapi.responses import JSONResponse
 
-from core import SEND_DEBUG
-from models import Trades, Users
+from app.core import SEND_DEBUG
+from app.models import Trades, Users
 from test_db import test_users, test_trades
 
 app: FastAPI = FastAPI(title='Trading FastAPI App')
