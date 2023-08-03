@@ -14,6 +14,7 @@ if SEND_DEBUG:
     @app.exception_handler(ValidationException)
     async def validation_exception_handler(
             request: Request, exc: ValidationException):
+        print(exc.errors())
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             content=jsonable_encoder({"detail": exc.errors()}))
@@ -22,7 +23,7 @@ if SEND_DEBUG:
 @app.get('/')
 def say_hello() -> str:
     """Return hello-phrase to human."""
-    return 'Hello, Human!'
+    return {'message': 'Hello, Human!'}
 
 
 @app.get('/users/', response_model=list[Users])
@@ -54,5 +55,4 @@ def change_username(user_id: int, new_username: str):
     """Change username for user with given user_id."""
     user = list(filter(lambda user: user.get('id') == user_id, test_users))[0]
     user['name'] = new_username
-    print(test_users)
     return {'status': 200, 'data': user}
