@@ -1,32 +1,26 @@
 from datetime import datetime
-from enum import Enum
-from pydantic import BaseModel, Field
+from sqlalchemy import (
+    MetaData,
+    Column, Table,
+    ForeignKey, Integer, JSON, String, TIMESTAMP)
 
+metadata: MetaData = MetaData()
 
-class DegreeTypes(Enum):
-    newbie = 'newbie'
-    expert = 'expert'
+roles: Table = Table(
+    'roles',
+    metadata,
+    Column('id', Integer, primary_key=True),
+    Column('name', String, nullable=False),
+    Column('permissions', JSON),)
 
-
-class Degree(BaseModel):
-    id: int
-    created_at: datetime
-    type_degree: DegreeTypes
-
-
-class Trades(BaseModel):
-    """Model for Trades."""
-    id: int
-    user_id: int
-    currency: str = Field(max_length=3)
-    side: str
-    price: float = Field(ge=0)
-    amount: float
-
-
-class Users(BaseModel):
-    """Model for Users."""
-    id: int
-    role: str
-    name: str
-    degree: list[Degree] = []
+users: Table = Table(
+    'users',
+    metadata,
+    Column('id', Integer, primary_key=True),
+    Column('email', String, nullable=False),
+    Column('name_first', String, nullable=False),
+    Column('name_second', String, nullable=False),
+    Column('password', String, nullable=False),
+    Column('registered_at', TIMESTAMP, default=datetime.utcnow),
+    Column('role_id', Integer, ForeignKey('roles.id')),
+    Column('username', String, nullable=False),)
