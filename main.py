@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from models import Trade
+from models import Trades, Users
 from test_db import test_users, test_trades
 
 app: FastAPI = FastAPI(title='Trading FastAPI App')
@@ -12,20 +12,20 @@ def say_hello() -> str:
     return 'Hello, Human!'
 
 
-@app.get('/users/{user_id}/')
-def get_user(user_id: int) -> dict:
+@app.get('/users/{user_id}/', response_model=list[Users])
+def get_user(user_id: int) -> list[dict]:
     """Return user with given user_id."""
     return [user for user in test_users if user.get('id') == user_id][0]
 
 
-@app.get('/trades/')
+@app.get('/trades/', response_model=list[Trades])
 def get_trades(limit: int = 3, offset: int = 0) -> list[dict]:
     """Return trades list."""
     return test_trades[offset:][:limit]
 
 
-@app.post('/trades')
-def add_trade(trades: list[Trade]):
+@app.post('/trades/')
+def add_trade(trades: list[Trades]):
     test_trades.extend(trades)
     return {'status': 200, "data": trades}
 
