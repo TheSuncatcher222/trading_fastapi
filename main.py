@@ -4,8 +4,6 @@ from fastapi.exceptions import ValidationException
 from fastapi.responses import JSONResponse
 
 from app.core import SEND_DEBUG
-from models.models import Trades, Users
-from test_db import test_users, test_trades
 
 app: FastAPI = FastAPI(title='Trading FastAPI App')
 
@@ -21,38 +19,27 @@ if SEND_DEBUG:
 
 
 @app.get('/')
-def say_hello() -> str:
+def say_hello():
     """Return hello-phrase to human."""
     return {'message': 'Hello, Human!'}
 
 
-@app.get('/users/', response_model=list[Users])
-def get_users():
-    """Return users."""
-    return test_users
+# @app.get('/something/', response_model=list[Something])
+# def get_example(limit: int = 3, offset: int = 0):
+#     """Return something list."""
+#     return Something[offset:][:limit]
 
 
-@app.get('/users/{user_id}/', response_model=Users)
-def get_user(user_id: int):
-    """Return user with given user_id."""
-    return [user for user in test_users if user.get('id') == user_id][0]
+# @app.get('/something/{something_id}/', response_model=Something)
+# def get_id_example(user_id: int):
+#     """Return something with given something_id."""
+#     return [user for user in something if user.get('id') == user_id][0]
 
 
-@app.get('/trades/', response_model=list[Trades])
-def get_trades(limit: int = 3, offset: int = 0):
-    """Return trades list."""
-    return test_trades[offset:][:limit]
-
-
-@app.post('/trades/')
-def add_trade(trades: list[Trades]):
-    test_trades.extend(trades)
-    return {'status': 200, "data": trades}
-
-
-@app.post('/users/{user_id}/')
-def change_username(user_id: int, new_username: str):
-    """Change username for user with given user_id."""
-    user = list(filter(lambda user: user.get('id') == user_id, test_users))[0]
-    user['name'] = new_username
-    return {'status': 200, 'data': user}
+# @app.post('/users/{user_id}/')
+# def post_something(something_id: int, new_something: str):
+#     """Change username for user with given user_id."""
+#     something = list(filter(
+#         lambda something: something.get('id') == something_id, something))[0]
+#     something['something'] = new_something
+#     return {'status': 200, 'data': something}
