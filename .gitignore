@@ -6,3 +6,6 @@ __pycache__/
 
 [security]
 .env
+
+[DB]
+migrations/versions/*
