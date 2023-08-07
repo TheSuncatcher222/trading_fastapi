@@ -1,7 +1,7 @@
 from typing import Optional, Generic
 
 from fastapi_users import schemas, models
-from pydantic import EmailStr, ConfigDict
+from pydantic import EmailStr
 
 
 class UserRead(schemas.BaseUser[int]):
@@ -14,8 +14,6 @@ class UserRead(schemas.BaseUser[int]):
     name_first: str
     name_second: str
     username: str
-
-    model_config = ConfigDict(from_attributes=True)
 
 
 class UserCreate(schemas.CreateUpdateDictModel, Generic[models.ID]):
