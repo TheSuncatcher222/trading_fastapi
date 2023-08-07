@@ -26,6 +26,7 @@ class Base(DeclarativeBase):
 
 class User(SQLAlchemyBaseUserTable[int], Base):
     __tablename__ = 'users'
+
     email: Mapped[str] = mapped_column(
         String(length=MAX_LEN_EMAIL),
         index=True,
@@ -67,7 +68,7 @@ engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 
-# Alembic will be in charge, no need to use
+# Alembic will be in charge, no need to use:
 # async def create_db_and_tables():
 #     async with engine.begin() as conn:
 #         await conn.run_sync(Base.metadata.create_all)
