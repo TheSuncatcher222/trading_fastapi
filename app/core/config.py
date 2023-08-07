@@ -9,5 +9,6 @@ DB_NAME = os.environ.get('DB_NAME')
 DB_USER = os.environ.get('DB_USER')
 DB_PASS = os.environ.get('DB_PASS')
 
-SECRET_MANAGER=os.environ.get('SECRET_MANAGER')
-SECRET_JWT=os.environ.get('SECRET_JWT')
+SECRET_MANAGER_RESET = os.environ.get('SECRET_MANAGER_RESET')
+SECRET_MANAGER_VERIFICATION = os.environ.get('SECRET_MANAGER_VERIFICATION')
+SECRET_JWT = os.environ.get('SECRET_JWT')
